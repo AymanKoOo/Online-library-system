@@ -1,10 +1,17 @@
 ﻿using AutoMapper;
+using Core.Entites;
 using Core.Entites.Books;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 using Web.Areas.Admin.ViewModels.Book;
 using Web.Services;
 using Web.ViewModels.BookPage;
 using Web.ViewModels.Home;
+using System.Web;
+using Microsoft.AspNetCore.Http;
+using Web.ViewModels.Holds;
+using Core.Entites.Hold;
 
 namespace Web.Areas.Admin.Factories
 {
@@ -54,10 +61,19 @@ namespace Web.Areas.Admin.Factories
             return model;
         }
 
-        public async Task<BookPageVM> PrepareBookModelClientAsync(string bookSlug)
+        public async Task<BookPageVM> PrepareBookModelClientAsync(string bookSlug,ApplicationUser user)
         {
             var book = await unitOfWork.book.GetBookBySlug(bookSlug);
+
             var model = mapper.Map<Book, BookPageVM>(book);
+
+            if (user != null)
+            {
+                var holds = await unitOfWork.hold.GetAllHoldsByUser(user.Id);
+                var holdsUser = mapper.Map<IEnumerable<Hold>, IEnumerable<HoldVM>>(holds);
+                model.Userholds = holdsUser;
+            }
+            
             model.PicturePath = book.BookPictures.First().Picture.MimeType;
             return model;
         }

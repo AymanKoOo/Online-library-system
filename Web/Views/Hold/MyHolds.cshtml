@@ -17,12 +17,13 @@
                             <div class="row no-gutters">
                                 <div class="col-md-4">
                                       <a asp-controller="BookPage" asp-action="Index" asp-route-slug="@item.BookSlug">
-                                        <img src="/uploads/@item.BookPicUrl" class="thumbnail" alt="Card Back">
-                                       </a>
+                                        <img src="/uploads/@item.BookPicUrl" class="img-fluid" alt="Responsive image">
+
+                                    </a>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
-                                        <h5 class="card-title">@item.BookTitle</h5>
+                                        <h5 class="card-title mt-4">@item.BookTitle</h5>
                                         <p class="card-text">
                                             <small class="text-muted">Hold placed on @item.HoldPlaced</small>
                                         </p>

@@ -33,6 +33,7 @@ namespace Infrastructure.Seed
                 NormalizedUserName = "ADMIN123",
                 Email = "admin123@gmail.com",
                 EmailConfirmed = true,
+                NormalizedEmail= "ADMIN123@GMAIL.COM",
                 PasswordHash = passwordHasher.HashPassword(null, "Admin123@")
             };
 

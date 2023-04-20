@@ -13,7 +13,5 @@ namespace Web.ViewModels.Holds
         public DateTime HoldPlaced { get; set; }
         public string BookPicUrl { get; set; }
         public string BookSlug { get; set; }
-
-
     }
 }

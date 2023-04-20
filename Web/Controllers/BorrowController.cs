@@ -10,6 +10,8 @@ using Web.Areas.Admin.Factories;
 using Web.ViewModels.Account;
 namespace Web.Controllers
 {
+    [Authorize]
+
     public class BorrowController:Controller
     {
 

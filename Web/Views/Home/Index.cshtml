@@ -15,13 +15,12 @@
         @foreach(var book in Model.Data)
         {
             <div class="col-md-2">
-                <div class="card">
+                <div class="card" sstyle="overflow: hidden;">
                     <a asp-controller="BookPage" asp-action="Index" asp-route-slug="@book.Slug">
-                        <img src="~/uploads/@book.PicturePath" class="card-img-top" alt="Book Cover">
+                        <img src="~/uploads/@book.PicturePath" class="img-fluid" alt="Book Cover">
                     </a>
-
                     <div class="card-body">
-                        <a href="#" class="btn btn-primary">Hold</a>
+                        <a asp-controller="BookPage" asp-action="Index" asp-route-slug="@book.Slug" class="btn btn-primary">Hold</a>
                     </div>
                 </div>
             </div>

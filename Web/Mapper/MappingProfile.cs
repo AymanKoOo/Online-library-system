@@ -13,6 +13,7 @@ using Web.Areas.Admin.ViewModels.BorrowVM;
 using Web.Areas.Admin.ViewModels.HoldVM;
 using Web.ViewModels.BookPage;
 using Web.ViewModels.Borrows;
+using Web.ViewModels.Holds;
 using Web.ViewModels.Home;
 
 namespace Web.Mapper
@@ -41,7 +42,10 @@ namespace Web.Mapper
 
             CreateMap<BorrowVM, Borrowing>();
             CreateMap<Borrowing, BorrowVM>();
-            
+
+            CreateMap<Hold, HoldVM>();
+            CreateMap<HoldVM, Hold>();
+
         }
     }
 }

@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
+using Core.Entites.Hold;
 using Core.Interfaces;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using Web.Areas.Admin.Factories;
 
 namespace Web.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/[Controller]")]
     public class BorrowingController : Controller
@@ -65,6 +69,12 @@ namespace Web.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            var book = borrow.Book;
+            book.Quantity++;
+            book.AvailableQuantity++;
+
+            _unitOfWork.book.Update(book);
+           
             borrow.IsReturned = true;
             borrow.ReturnedDate = now;
             _unitOfWork.borrowing.Update(borrow);

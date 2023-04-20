@@ -3,14 +3,17 @@ using Core.Entites.Books;
 using Core.Entites.Media;
 using Core.Interfaces;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 using System.Net;
 using Web.Areas.Admin.Factories;
 using Web.Areas.Admin.ViewModels.Book;
 
 namespace Web.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/[Controller]")]
     public class BookController : Controller

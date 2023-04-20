@@ -1,6 +1,7 @@
 ﻿using Core.Entites;
 using Core.Entites.others;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,23 @@ namespace Infrastructure.Repo
 
         public void DeleteUser(ApplicationUser model)
         {
-            _dbcontext.Users.Remove(model);
+
+            var holds = _dbcontext.holds.Where(x => x.User.Id == model.Id);
+            if (holds != null)
+            {
+                foreach (var h in holds)
+                {
+                    _dbcontext.holds.Remove(h);
+                }
+            }
+            var borrows = _dbcontext.borrowings.Where(x => x.User.Id == model.Id);
+            if (borrows != null)
+            {
+                foreach (var b in borrows)
+                {
+                    _dbcontext.borrowings.Remove(b);
+                }
+            }
         }
 
         public void EditUser(ApplicationUser model)

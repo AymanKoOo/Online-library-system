@@ -8,5 +8,7 @@
         public DateTime? ReturnedDate { get; set; }
         public string picUrl { get; set; }
         public bool IsReturned { get; set; }
+        public string Slug { get; set; }
+
     }
 }

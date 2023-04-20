@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Web.ViewModels.Holds;
 
 namespace Web.ViewModels.BookPage
 {
@@ -42,5 +43,6 @@ namespace Web.ViewModels.BookPage
         public string Slug { get; set; }
 
         public string PicturePath { get; set; }
+        public IEnumerable<HoldVM> Userholds{ get; set; }
     }
 }

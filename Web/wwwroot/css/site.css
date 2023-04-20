@@ -34,12 +34,21 @@ body {
 }
 
 .btn-primary:hover {
-    color: #45c418;
+    color: red;
     background-color: red;
 }
 
+.btn-primary {
 
+    color: white;
+}
 
+.card .card-body .btn {
+    margin-top: 20px;
+    width: 100%;
+ 
+    background-color: #212529;
+}
 #pag ul {
     display: flex;
     flex-direction: row;
@@ -208,3 +217,14 @@ body {
    color:white;
 }
 
+.profile{
+    margin-right:20px;
+}
+.profile a{
+    text-decoration:none;
+}
+
+p.dead-line {
+    font-size: 5em;
+    color: #c63c3c;
+}

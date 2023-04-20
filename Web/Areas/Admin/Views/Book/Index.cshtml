@@ -13,6 +13,8 @@
         <div class="table-title">
             <div class="row">
                 <div class="col-sm-12">
+                    <a class="btn btn-success" asp-controller="Book" asp-action="Add">Add Book</a>
+
                     <h2 class="text-center"><font style="vertical-align: inherit;"> Books  </font><b><font style="vertical-align: inherit;">Details </font></b></h2>
                 </div>
             </div>
@@ -56,8 +58,8 @@
                             <td><font style="vertical-align: inherit;">@p.Quantity  </font></td>
                             <td><font style="vertical-align: inherit;">@p.AvailableQuantity  </font></td>
                             <td>
-                                <a asp-controller="Book" asp-action="Edit" asp-route-bookID="@p.Id">Edit</a>
-                                <a asp-controller="Book" asp-action="Delete" asp-route-bookID="@p.Id">Delete</a>
+                              <a class="btn btn-primary" asp-controller="Book" asp-action="Edit" asp-route-bookID="@p.Id">Edit</a>
+                              <a class="btn btn-danger mt-4" asp-controller="Book" asp-action="Delete" asp-route-bookID="@p.Id">Delete</a>
                             </td>
                         </tr>
                     }

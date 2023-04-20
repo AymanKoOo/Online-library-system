@@ -52,14 +52,14 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "8f87e87b-d3c6-4464-83cc-cf89b3b767c8",
+                            ConcurrencyStamp = "23437954-fd30-4a01-a17a-2aeceadaa9f4",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "e720077e-1dbd-49a1-9c48-b9e7c254f38c",
+                            ConcurrencyStamp = "5e096cd3-1e80-4010-bac2-0002d5dcac6d",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -134,14 +134,14 @@ namespace Infrastructure.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c8450489-9946-4c4c-a43b-08f0db1ad12e",
+                            ConcurrencyStamp = "0204eda3-9b38-4d7c-9e3b-db354ab19cf0",
                             Email = "admin123@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN123",
-                            PasswordHash = "AQAAAAEAACcQAAAAELloo2kpByKCHR1tN6LIsKXa/7dSxllyAFmMjIpz5xyiz8Z95IETaPMBt6+7JO33ZA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEPhGvuFPK0RODnsi+VIdcgh4TMNvOY/QjcfWC3ZI/4ix++n1eolYAxDNYue8aXJjA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9a01155f-b02c-4ce4-bf13-5a6eb0befdec",
+                            SecurityStamp = "6242f147-3cc1-4d64-8963-84d4d6d8968d",
                             TwoFactorEnabled = false,
                             UserName = "Admin123"
                         });

@@ -95,17 +95,21 @@ namespace Web.Areas.Admin.Factories
 
             foreach (var h in borrows)
             {
-                var picUrl = await unitOfWork.book.GetBookPictureURLByBookID(h.BookId);
-
-                var model = new BorrowVM
+                if (h.IsReturned == false)
                 {
-                    BookTitle = h.Book.Title,
-                    BorrowedDate = h.BorrowedDate,
-                    picUrl = picUrl,
-                    DueDate = h.DueDate,
-                    IsReturned =h.IsReturned
-                };
-                borrowVMS.Add(model);
+                    var picUrl = await unitOfWork.book.GetBookPictureURLByBookID(h.BookId);
+
+                    var model = new BorrowVM
+                    {
+                        BookTitle = h.Book.Title,
+                        BorrowedDate = h.BorrowedDate,
+                        picUrl = picUrl,
+                        DueDate = h.DueDate,
+                        IsReturned = h.IsReturned,
+                        Slug = h.Book.Slug
+                    };
+                    borrowVMS.Add(model);
+                }
             }
             return borrowVMS;
         }

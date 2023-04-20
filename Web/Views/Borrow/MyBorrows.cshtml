@@ -16,21 +16,21 @@
                         <div class="card shadow">
                             <div class="row no-gutters">
                                 <div class="col-md-4">
-                                    <a asp-controller="BookPage" asp-action="Index" asp-route-slug="@item.BookSlug">
-                                        <img src="/uploads/@item.picUrl" class="thumbnail" alt="Card Back">
+                                    <a asp-controller="BookPage" asp-action="Index" asp-route-slug="@item.Slug">
+                                        <img src="/uploads/@item.picUrl" class="img-fluid" alt="Card Back">
                                     </a>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
-                                        <h5 class="card-title">@item.BookTitle</h5>
+                                        <h5 class="card-title mt-4">@item.BookTitle</h5>
                                         <p class="card-text">
                                             <small class="text-muted"> Borrowed Date @item.BorrowedDate</small>
                                         </p>
                                           <p class="card-text">
                                             <small class="text-muted"> You must return on on @item.DueDate</small>
                                         </p>
-                                          <p class="card-text">
-                                            <small class="text-muted"> Is Returned : @item.IsReturned</small>
+                                        <p class="dead-line" >
+                                            @Math.Abs((item.BorrowedDate.Day - item.DueDate.Day)).ToString() Days Left
                                         </p>
                                       
                                     </div>

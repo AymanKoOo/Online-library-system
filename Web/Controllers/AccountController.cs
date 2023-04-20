@@ -84,13 +84,13 @@ namespace Web.Controllers
 
         [HttpGet]
         [Route("Login")]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login()
         {
-            ViewBag.ReturnUrl = returnUrl;
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
+          
             return View("~/Views/Account/Login.cshtml");
         }
 
@@ -111,13 +111,6 @@ namespace Web.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid email or password.");
                 return View(model);
             }
-
-            if (!await _userManager.IsInRoleAsync(user, "User"))
-            {
-                ModelState.AddModelError(string.Empty, "You are not authorized to access this resource.");
-                return View(model);
-            }
-
 
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password) && await _userManager.IsInRoleAsync(user, "User"))
             {
@@ -154,7 +147,7 @@ namespace Web.Controllers
                     new ClaimsPrincipal(claimIdentity),
                     authProperties
                     );
-                return Redirect("/");
+                return RedirectToAction("Index", "Home");
             }
 
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password) && await _userManager.IsInRoleAsync(user, "Admin"))
@@ -186,8 +179,8 @@ namespace Web.Controllers
                         new ClaimsPrincipal(claimIdentity), // ClaimsPrincipal is a class that represents the user's identity and associated claims, and is used to perform authorization checks in your application. A ClaimsPrincipal object is created from a ClaimsIdentity object, which contains a collection of claims that represent the user's identity.
                         authProperties
                         );
-                    return Redirect("/");
-                }
+                    return RedirectToAction("Index", "Admin");
+            }
 
             return RedirectToAction("Index", "Home");
         }

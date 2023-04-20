@@ -1,10 +1,15 @@
 ﻿using Core.Entites;
 using Core.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace Web.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/[Controller]")]
     public class UserController : Controller
@@ -28,8 +33,10 @@ namespace Web.Areas.Admin.Controllers
         {
             var user = await _unitOfWork.Admin.GetUserByID(UserID);
             _unitOfWork.Admin.DeleteUser(user);
+            await _userManager.DeleteAsync(user);
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             _unitOfWork.Save();
-            return RedirectToAction("Index", "User");
+            return RedirectToAction("Login", "Account");
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Infrastructure.Repo
         }
         public async Task<Borrowing> getBorrowbyID(int borrowID)
         {
-           return await _dbcontext.borrowings.Where(x => x.Id == borrowID).FirstOrDefaultAsync();
+           return await _dbcontext.borrowings.Where(x => x.Id == borrowID).Include(x=>x.Book).FirstOrDefaultAsync();
         }
         public async Task<IEnumerable<Borrowing>> GetAllBorrowsByUser(string userId)
         {
@@ -33,6 +33,21 @@ namespace Infrastructure.Repo
            var hold = await _dbcontext.holds.Where(x => x.Id == holdID).Include(x=>x.User).Include(x=>x.Book).FirstOrDefaultAsync();
            DateTime now = DateTime.Now;
 
+            var book = hold.Book;
+            
+            if (book.Quantity > 0)
+            {
+                book.Quantity--;
+            }
+            if (book.Quantity == 0)
+            {
+                book.AvailableQuantity = 0;
+            }
+            else
+            {
+                book.AvailableQuantity++;
+            }
+
             var borrow = new Borrowing
             {
                 UserId = hold.UserId,
@@ -43,6 +58,7 @@ namespace Infrastructure.Repo
                 IsReturned = false
             };
             await _dbcontext.borrowings.AddAsync(borrow);
+            _dbcontext.books.Update(book);
             _dbcontext.holds.Remove(hold);
         }
 

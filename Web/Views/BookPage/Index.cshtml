@@ -7,12 +7,13 @@
 
         <div class="col-lg-3 col-md-6 col-sm-12 col-12">
 
-            <div class="image-container">
-                <img id="zoom" class="image-zoom" src="/uploads/@Model.PicturePath">
-                <div class="image-details"></div>
-            </div>
-        </div>
+                <div class="image-container" style="overflow: hidden;">
+                <img id="zoom" class="img-fluid" src="/uploads/@Model.PicturePath">
+                    <div class="image-details"></div>
+                </div>
 
+        </div>
+      
         <div class="col-lg-9 col-md-6 col-sm-12 col-12">
 
             <div id="product-details" class="container ">
@@ -55,7 +56,7 @@
 
                             <div class="Noavalib">
                                 <i class="fa fa-window-close" aria-hidden="true"></i>
-                                Not Avalible On shelf
+                                Not Avalible 
                             </div>
                         }
 
@@ -70,17 +71,26 @@
 
                                          <div class="row">
 
-                                             <div class="col-md-6">
+                                             <div class="col-md-4">
 
                                                 <div class="holds">
-                                                    10 Holds
+                                                    @(Model.Quantity - Model.AvailableQuantity) Holds
                                                 </div>
 
                                              </div>
 
-                                            <div class="col-md-6">
+
+                                            <div class="col-md-4">
+
+                                                <div class="holds">
+                                                    @Model.AvailableQuantity Avaliable 
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-4">
                                                 <div class="AvalibleQuantity">
-                                                    @Model.AvailableQuantity Copies
+                                                    @Model.Quantity Copies
                                                 </div>
                                             </div>
 
@@ -92,13 +102,39 @@
 
                                  </div>
 
-                                 <div class="col-md-3">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    @if (@Model.AvailableQuantity > 0 && !Model.Userholds.Any(x => x.BookSlug == Model.Slug))
+                                    {
+                                        <div class="col-md-3">
 
-                                    <a class="hold-btn" asp-controller="Hold" asp-action="HoldBook" asp-route-slug="@Model.Slug">Hold</a>
+                                            <a class="hold-btn" asp-controller="Hold" asp-action="HoldBook" asp-route-slug="@Model.Slug">Hold</a>
 
-                                 </div>
+                                        </div>
+                                    }
+                                    @if (Model.Userholds.Any(x => x.BookSlug == Model.Slug))
+                                    {
+                                        <div class="col-md-3">
 
-                             </div>
+                                            <div class="AvalibleQuantity">
+                                                You are Holding This BOOK
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    @if (@Model.AvailableQuantity > 0)
+                                    {
+                                        <div class="col-md-3">
+
+                                            <a class="hold-btn" asp-controller="Hold" asp-action="HoldBook" asp-route-slug="@Model.Slug">Hold</a>
+
+                                        </div>
+                                    }
+                                }
+                                
+                            </div>
 
                          </div>
 

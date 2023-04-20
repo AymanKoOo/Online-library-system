@@ -82,7 +82,7 @@ namespace Web.Controllers
         [HttpGet]
         [Route("CancelHold")]
         public async Task<IActionResult> CancelHold(string slug)
-        {
+            {
             string email = User.FindFirst(ClaimTypes.Email)?.Value;
             if (string.IsNullOrEmpty(email))
             {
@@ -101,10 +101,7 @@ namespace Web.Controllers
             {
                 return NotFound();
             }
-            if (book.AvailableQuantity <= 0)
-            {
-                return NotFound();
-            }
+         
 
             await _unitOfWork.hold.UserCancelHoldBook(user.Id, book);
             await _unitOfWork.SaveAsync();

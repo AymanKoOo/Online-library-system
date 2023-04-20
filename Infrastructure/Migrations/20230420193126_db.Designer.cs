@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230418120016_Add-Normalized")]
-    partial class AddNormalized
+    [Migration("20230420193126_db")]
+    partial class db
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,14 +54,14 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "74870362-422e-4384-91da-efc768fea50a",
+                            ConcurrencyStamp = "23437954-fd30-4a01-a17a-2aeceadaa9f4",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "c3429d68-2178-40e3-97a8-af83fb33ced4",
+                            ConcurrencyStamp = "5e096cd3-1e80-4010-bac2-0002d5dcac6d",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -136,14 +136,14 @@ namespace Infrastructure.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ae7de89a-1b87-45d5-9d8a-21a33f7fe538",
+                            ConcurrencyStamp = "0204eda3-9b38-4d7c-9e3b-db354ab19cf0",
                             Email = "admin123@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN123",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMlfZPmgtY1OTgw2CUWA3ZYnQk4z9Id7dYtf/gSfe3mgFzMhDDVB1VdsCXnpOaGk7A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEPhGvuFPK0RODnsi+VIdcgh4TMNvOY/QjcfWC3ZI/4ix++n1eolYAxDNYue8aXJjA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d1e24aba-6449-493e-8962-243445b54e37",
+                            SecurityStamp = "6242f147-3cc1-4d64-8963-84d4d6d8968d",
                             TwoFactorEnabled = false,
                             UserName = "Admin123"
                         });
@@ -172,9 +172,8 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ISBN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ISBN")
+                        .HasColumnType("int");
 
                     b.Property<bool>("InStock")
                         .HasColumnType("bit");
@@ -188,6 +187,10 @@ namespace Infrastructure.Migrations
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -239,17 +242,15 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime?>("ReturnedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BookId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("borrowings");
                 });
@@ -268,17 +269,15 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("HoldPlaced")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BookId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("holds");
                 });
@@ -291,28 +290,13 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("AltAttribute")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsNew")
-                        .HasColumnType("bit");
-
                     b.Property<string>("MimeType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SeoFilename")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TitleAttribute")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Picture");
+                    b.ToTable("pictures");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -400,6 +384,13 @@ namespace Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "1",
+                            RoleId = "1"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -450,7 +441,9 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Core.Entites.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Book");
 
@@ -467,7 +460,9 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Core.Entites.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Book");
 

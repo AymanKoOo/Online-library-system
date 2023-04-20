@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Migrations
 {
-    public partial class createdb : Migration
+    public partial class db : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,8 +58,9 @@ namespace Infrastructure.Migrations
                     Author = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Publisher = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PublishedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ISBN = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ISBN = table.Column<int>(type: "int", nullable: false),
                     Genre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Slug = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     InStock = table.Column<bool>(type: "bit", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
@@ -71,20 +72,16 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Picture",
+                name: "pictures",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MimeType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SeoFilename = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AltAttribute = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TitleAttribute = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IsNew = table.Column<bool>(type: "bit", nullable: false)
+                    MimeType = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Picture", x => x.Id);
+                    table.PrimaryKey("PK_pictures", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -199,8 +196,7 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     BookId = table.Column<int>(type: "int", nullable: false),
                     BorrowedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -211,10 +207,11 @@ namespace Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_borrowings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_borrowings_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_borrowings_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_borrowings_books_BookId",
                         column: x => x.BookId,
@@ -229,8 +226,7 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     BookId = table.Column<int>(type: "int", nullable: false),
                     HoldPlaced = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -238,10 +234,11 @@ namespace Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_holds", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_holds_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_holds_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_holds_books_BookId",
                         column: x => x.BookId,
@@ -268,12 +265,32 @@ namespace Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_bookPictures_Picture_PictureId",
+                        name: "FK_bookPictures_pictures_PictureId",
                         column: x => x.PictureId,
-                        principalTable: "Picture",
+                        principalTable: "pictures",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "1", "23437954-fd30-4a01-a17a-2aeceadaa9f4", "Admin", "ADMIN" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "2", "5e096cd3-1e80-4010-bac2-0002d5dcac6d", "User", "USER" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "1", 0, "0204eda3-9b38-4d7c-9e3b-db354ab19cf0", "admin123@gmail.com", true, false, null, null, "ADMIN123", "AQAAAAEAACcQAAAAEEPhGvuFPK0RODnsi+VIdcgh4TMNvOY/QjcfWC3ZI/4ix++n1eolYAxDNYue8aXJjA==", null, false, "6242f147-3cc1-4d64-8963-84d4d6d8968d", false, "Admin123" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "1", "1" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -325,9 +342,9 @@ namespace Infrastructure.Migrations
                 column: "BookId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_borrowings_UserId1",
+                name: "IX_borrowings_UserId",
                 table: "borrowings",
-                column: "UserId1");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_holds_BookId",
@@ -335,9 +352,9 @@ namespace Infrastructure.Migrations
                 column: "BookId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_holds_UserId1",
+                name: "IX_holds_UserId",
                 table: "holds",
-                column: "UserId1");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -370,7 +387,7 @@ namespace Infrastructure.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Picture");
+                name: "pictures");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
