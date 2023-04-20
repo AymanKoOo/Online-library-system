@@ -1,0 +1,43 @@
+﻿body {
+}
+.img-box img {
+    width: 140px;
+    height: 200px;
+}
+
+#pag ul {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    margin: auto;
+    margin-top: 50px;
+}
+
+#pag .active a {
+    background-color: #232f3e;
+    color: whitesmoke;
+}
+
+#pag .page-link {
+    color: black;
+}
+
+#pag .disabled a {
+    pointer-events: none !important;
+    background-color: #232f3e !important;
+    color: whitesmoke !important;
+}
+
+.selected {
+    border: 3px solid #1ae17a !important;
+    border-radius: 30px;
+}
+
+#pag ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+

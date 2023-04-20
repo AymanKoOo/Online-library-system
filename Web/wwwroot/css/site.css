@@ -1,0 +1,210 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.card-body{
+
+    padding:0 0!important;
+
+}
+
+.card{
+    border:0 !important;    
+}
+
+.card .card-body .btn{
+    margin-top:20px;
+    width:100%;
+    background-color:forestgreen;
+}
+
+.btn-primary:hover {
+    color: #45c418;
+    background-color: red;
+}
+
+
+
+#pag ul {
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    margin: auto;
+    margin-top: 50px;
+}
+
+#pag .active a {
+    background-color: #232f3e;
+    color: whitesmoke;
+}
+
+#pag .page-link {
+    color: black;
+}
+
+#pag .disabled a {
+    pointer-events: none !important;
+    background-color: #232f3e !important;
+    color: whitesmoke !important;
+}
+
+.selected {
+    border: 3px solid #1ae17a !important;
+    border-radius: 30px;
+}
+
+#pag ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#pag{
+    margin-top:100px;
+}
+
+.product-image-container img {
+    width: 80px;
+    height: 50px;
+}
+
+
+
+.bookdetails .title {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.5;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    color: #33475b;
+}
+
+.bookdetails .author {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.5;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #00778a;
+    margin-top:5px;
+}
+
+.bookdetails .pubDate {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.25;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #727272;
+    margin-top: 5px;
+}
+
+.bookdetails .publisher {
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.5;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #00778a;
+    margin-top: 5px;
+}
+
+.bookdetails .description {
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.5;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #33475b;
+    margin-top: 5px;
+}
+
+.bookactions{
+    margin-top:30px;
+    border: 1px solid gray;
+}
+
+.bookactions .avalib {
+
+    color:green;
+    font-size:30px;
+
+}
+
+    .bookactions .Noavalib {
+        color: red;
+        font-size: 40px;
+    }
+
+    .bookactions .avalib span{
+        font-size:20px;
+    }
+
+.AvalibleQuantity {
+    font-size: 20px;
+    font-weight: bold;
+    color: #33475b;
+    margin-bottom: 30px !important;
+}
+.holds {
+    font-size: 20px;
+    color: #33475b;
+    font-weight: bold;
+    margin-bottom: 30px !important;
+}
+
+.hold-btn {
+    font-size: 20px;
+    font-weight: normal;
+    line-height: 1.5;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: white;
+    text-align: right;
+    font-family: Roboto;
+    border: 2px solid #33475b;
+    border-radius: 10%;
+    padding: 5px 20px 5px 20px;
+    padding-top: 5px;
+    padding-right: 20px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    background-color: #33475b;
+    font-weight: bold;
+    text-decoration: none;
+    margin-bottom: 30px !important;
+}
+
+.hold-btn:hover{
+   color:white;
+}
+

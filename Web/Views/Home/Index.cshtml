@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@{
+    int nextPage = @Model.CurrentPage + 1;
+    int prevPage = @Model.CurrentPage - 1;
+}
+
+@model Web.ViewModels.Home.BookListVM
+
+<div class="container mt-5">
+    <div class="row">
+        
+        @foreach(var book in Model.Data)
+        {
+            <div class="col-md-2">
+                <div class="card">
+                    <a asp-controller="BookPage" asp-action="Index" asp-route-slug="@book.Slug">
+                        <img src="~/uploads/@book.PicturePath" class="card-img-top" alt="Book Cover">
+                    </a>
+
+                    <div class="card-body">
+                        <a href="#" class="btn btn-primary">Hold</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div id="pag">
+    <ul>
+
+        @if (Model.HasPrevious == true)
+        {
+            <li> <a class="page-link prev" asp-controller="Home" asp-action="Index" asp-route-pageNumber="@prevPage">Prev</a></li>
+        }
+        else
+        {
+            <li class="disabled prev"> <a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="@prevPage">Prev</a></li>
+        }
+
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            if (i == Model.CurrentPage)
+            {
+                <li class="disabled"> <a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="@i">@i</a></li>
+            }
+            else
+            {
+                <li> <a class="page-link" asp-controller="Home" asp-action="Index" asp-route-pageNumber="@i">@i</a></li>
+            }
+        }
+
+        @if (Model.HasNext == true)
+        {
+            <li>
+                <a class="page-link next" asp-controller="Home" asp-action="Index" asp-route-pageNumber="@nextPage">Next</a>
+            </li>
+        }
+        else
+        {
+            <li class="disabled">
+                <a class="page-link next" asp-controller="Home" asp-action="Index" asp-route-pageNumber="@nextPage">Next</a>
+            </li>
+        }
+    </ul>
+
+</div>
+
+
+
+

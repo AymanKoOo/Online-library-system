@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Web.ViewModels.Holds.HoldVM>
+
+<div class="container checkout-cart mt-5">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="text-center mb-5">My Holds</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-12 mb-4">
+                        <div class="card shadow">
+                            <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <img src="/uploads/@item.BookPicUrl" class="thumbnail" alt="Card Back">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@item.BookTitle</h5>
+                                        <p class="card-text">
+                                            <small class="text-muted">Hold placed on @item.HoldPlaced</small>
+                                        </p>
+                                        <a asp-controller="Hold" asp-action="CancelHold" asp-route-slug="@item.BookSlug" class="btn btn-danger">
+                                            Cancel Hold
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+           
+        </div>
+    </div>
+</div>

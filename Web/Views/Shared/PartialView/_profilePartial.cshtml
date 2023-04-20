@@ -1,0 +1,42 @@
+﻿@using System.Security.Claims;
+
+
+
+@if (User.Identity.IsAuthenticated)
+{
+
+    string email = User.FindFirst(ClaimTypes.Email)?.Value;
+    {
+        if (!string.IsNullOrEmpty(email))
+        {
+
+            <li class="nav-item">
+                <div class="ec-btn-desc">
+                    <span class="ec-btn-title">Hello</span>
+                    <span class="ec-btn-stitle"> @email</span>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <div class="ec-btn-desc">
+                    <a asp-controller="Account" asp-action="Logout" class="ec-btn-stitle">LogOut</a>
+                </div>
+            </li>
+        }
+    }
+}
+
+else
+{
+     <li class="nav-item">
+        <div class="ec-btn-desc">
+            <a asp-controller="Account" asp-action="Login" class="ec-btn-stitle">Login</a>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <div class="ec-btn-desc">
+            <a asp-controller="Account" asp-action="Register" class="ec-btn-stitle">Register</a>
+        </div>
+    </li>
+}

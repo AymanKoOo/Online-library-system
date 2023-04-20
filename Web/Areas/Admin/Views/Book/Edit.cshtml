@@ -1,0 +1,156 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model Web.Areas.Admin.ViewModels.Book.ABookVM
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <h4>The following errors occurred:</h4>
+        <hr />
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
+
+
+<div class="contenti">
+    <div class="container">
+        <form asp-controller="Book" enctype="multipart/form-data" asp-action="Edit" method="post">
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label asp-for="Title"></label>
+                        <input asp-for="Title" value="@Model.Title" class="form-control" type="text">
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <input asp-for="Id" type="hidden" value="@Model.Id" />
+
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label asp-for="Author"></label>
+                        <input asp-for="Author" value="@Model.Author" class="form-control" type="text" >
+                        <span asp-validation-for="Author" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label asp-for="Publisher"></label>
+                        <input asp-for="Publisher" value="@Model.Publisher" class="form-control" type="text" >
+                        <span asp-validation-for="Publisher " class="text-danger"></span>
+                    </div>
+
+                </div>
+
+
+
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label asp-for="PublishedDate"></label>
+                        <input asp-for="PublishedDate" value="@Model.PublishedDate" class="form-control" type="date" >
+                        <span asp-validation-for="PublishedDate" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label asp-for="ISBN"></label>
+                        <input asp-for="ISBN" value="@Model.ISBN" class="form-control" type="number" >
+                        <span asp-validation-for="ISBN" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label asp-for="Genre"></label>
+                        <input asp-for="Genre" value="@Model.Genre" class="form-control" type="text" >
+                        <span asp-validation-for="Genre" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <input asp-for="Description" value="@Model.Description" class="form-control" type="text">
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label asp-for="InStock"></label>
+                        <input asp-for="InStock" value="@Model.InStock" class="form-control" type="checkbox">
+                        <span asp-validation-for="InStock" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label asp-for="Quantity"></label>
+                        <input asp-for="Quantity" value="@Model.Quantity" class="form-control" type="number">
+                        <span asp-validation-for="Quantity" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label asp-for="AvailableQuantity"></label>
+                        <input asp-for="AvailableQuantity" value="@Model.AvailableQuantity" class="form-control" type="number">
+                        <span asp-validation-for="AvailableQuantity" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-12">
+
+                    <div class="form-group">
+                        <label asp-for="PictureFile"></label>
+                        <input asp-for="PictureFile" class="form-control" type="file" placeholder="PictureFile">
+                    </div>
+
+                </div>
+
+
+                <button class="btn btn-primary" type="submit">
+                    Edit
+                </button>
+
+            </div>
+        </form>
+    </div>
+</div>
+

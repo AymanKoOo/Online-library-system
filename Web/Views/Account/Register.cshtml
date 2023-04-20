@@ -1,0 +1,59 @@
+﻿@model Web.ViewModels.Account.RegisterVM
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <h4>The following errors occurred:</h4>
+        <hr />
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+
+
+<div class="heading">
+
+    <div class="titlee">
+        CREATE AN ACCOUNT
+    </div>
+</div>
+
+<form asp-controller="Account" asp-action="Register" method="post">
+
+
+    <div class="form-group">
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" class="form-control" type="text" placeholder="Name">
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" type="email" placeholder="Email">
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form-control" type="Password" placeholder="Password">
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password">Confirm Password</label>
+        <input asp-for="ConfirmPasswod" class="form-control" type="Password" placeholder="Confirm Password">
+        <span asp-validation-for="ConfirmPasswod" class="text-danger"></span>
+    </div>
+
+    <div class="form-footer">
+
+        <button class="btn btn-primary" type="submit">
+            CREATE ACCOUNT
+        </button>
+    </div>
+
+</form>

@@ -1,0 +1,115 @@
+﻿@model Web.ViewModels.BookPage.BookPageVM
+
+
+<div class="container mt-5 mb-4">
+    <div class="row justify-content-md-center">
+
+
+        <div class="col-lg-3 col-md-6 col-sm-12 col-12">
+
+            <div class="image-container">
+                <img id="zoom" class="image-zoom" src="/uploads/@Model.PicturePath">
+                <div class="image-details"></div>
+            </div>
+        </div>
+
+        <div class="col-lg-9 col-md-6 col-sm-12 col-12">
+
+            <div id="product-details" class="container ">
+
+                 <div class="row">
+
+                     <div class="bookdetails">
+                        <div class="title">
+                            @Model.Title
+                        </div>
+
+                        <div class="author">
+                            @Model.Author
+                        </div>
+
+                        <div class="pubDate">
+                            Published: @Model.PublishedDate
+                        </div>
+
+                        <div class="publisher">
+                            @Model.Publisher
+                        </div>
+                        <div class="description">
+                            @Model.Description
+                        </div>
+                     </div>
+
+                     <div class="bookactions">
+
+                        @if (Model.AvailableQuantity > 0)
+                        {
+                            <div class="avalib">
+                                <i class="fa-solid fa-check"></i>
+                                <span>
+                                    Avalible On shelf
+                                </span>
+                            </div>
+                        }
+                        else{
+
+                            <div class="Noavalib">
+                                <i class="fa fa-window-close" aria-hidden="true"></i>
+                                Not Avalible On shelf
+                            </div>
+                        }
+
+
+                         <div class="container mt-4">
+
+                             <div class="row">
+
+                                 <div class="col-md-9">
+
+                                     <div class="contianer">
+
+                                         <div class="row">
+
+                                             <div class="col-md-6">
+
+                                                <div class="holds">
+                                                    10 Holds
+                                                </div>
+
+                                             </div>
+
+                                            <div class="col-md-6">
+                                                <div class="AvalibleQuantity">
+                                                    @Model.AvailableQuantity Copies
+                                                </div>
+                                            </div>
+
+                                         </div>
+
+
+                                     </div>
+
+
+                                 </div>
+
+                                 <div class="col-md-3">
+
+                                    <a class="hold-btn" asp-controller="Hold" asp-action="HoldBook" asp-route-slug="@Model.Slug">Hold</a>
+
+                                 </div>
+
+                             </div>
+
+                         </div>
+
+                        
+
+                       
+                     </div>
+                    
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
