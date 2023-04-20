@@ -106,6 +106,18 @@ namespace Web.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid email or password.");
                 return View(model);
             }
+            if (!await _userManager.CheckPasswordAsync(user, model.Password))
+            {
+                ModelState.AddModelError(string.Empty, "Invalid email or password.");
+                return View(model);
+            }
+
+            if (!await _userManager.IsInRoleAsync(user, "User"))
+            {
+                ModelState.AddModelError(string.Empty, "You are not authorized to access this resource.");
+                return View(model);
+            }
+
 
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password) && await _userManager.IsInRoleAsync(user, "User"))
             {

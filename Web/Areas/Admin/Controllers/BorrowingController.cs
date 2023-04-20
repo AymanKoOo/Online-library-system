@@ -37,12 +37,39 @@ namespace Web.Areas.Admin.Controllers
         }
 
 
+        [HttpGet("ShowBorrow")]
+        public async Task<IActionResult> ShowBorrow(int pageSize = 5, int pageNumber = 1)
+        {
+            var model = await holdModelFactory.PrepareBorrowListModelAsync(pageSize, pageNumber);
+            return View(model);
+        }
+
         [HttpGet("Borrow")]
         public async Task<IActionResult> Borrow(int holdId)
         {
             await _unitOfWork.borrowing.borrowHolder(holdId, 7);
             await _unitOfWork.SaveAsync();
-            return RedirectToAction("Index", "Book");
+            return RedirectToAction("ShowBorrow", "Borrowing");
+        }
+
+        [HttpGet("Returned")]
+        public async Task<IActionResult> Returned(int borrowId)
+        {
+            DateTime now = DateTime.Now;
+            var borrow = await _unitOfWork.borrowing.getBorrowbyID(borrowId);
+            if(borrow == null)
+            {
+                return NotFound();
+            }
+            if(borrow.IsReturned == true)
+            {
+                return NotFound();
+            }
+            borrow.IsReturned = true;
+            borrow.ReturnedDate = now;
+            _unitOfWork.borrowing.Update(borrow);
+            await _unitOfWork.SaveAsync();
+            return RedirectToAction("ShowBorrow", "Borrowing");
         }
     }
 }

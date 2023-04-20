@@ -1,4 +1,6 @@
-﻿using Core.Entites.Borrowing;
+﻿using AyyBlog.ViewModel;
+using Core.Entites.Borrowing;
+using Core.Entites.Hold;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +19,15 @@ namespace Infrastructure.Repo
         {
             this._dbcontext = dbcontext;
         }
-
+        public async Task<Borrowing> getBorrowbyID(int borrowID)
+        {
+           return await _dbcontext.borrowings.Where(x => x.Id == borrowID).FirstOrDefaultAsync();
+        }
+        public async Task<IEnumerable<Borrowing>> GetAllBorrowsByUser(string userId)
+        {
+            return await _dbcontext.borrowings.Where(x => x.UserId == userId).Include(x => x.Book)
+                .ToListAsync();
+        }
         public async Task borrowHolder(int holdID,int borrowDueDays)
         {
            var hold = await _dbcontext.holds.Where(x => x.Id == holdID).Include(x=>x.User).Include(x=>x.Book).FirstOrDefaultAsync();
@@ -34,6 +44,14 @@ namespace Infrastructure.Repo
             };
             await _dbcontext.borrowings.AddAsync(borrow);
             _dbcontext.holds.Remove(hold);
+        }
+
+        public async Task<PagedList<Borrowing>> GetAllBorrowList(int pageSize, int pageNumber)
+        {
+            var borrowModel = _dbcontext.borrowings.Include(x => x.User).Include(p => p.Book);
+            return await PagedList<Borrowing>.ToPagedList(borrowModel,
+            pageNumber,
+            pageSize);
         }
     }
 }

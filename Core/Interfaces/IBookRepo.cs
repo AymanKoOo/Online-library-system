@@ -22,7 +22,7 @@ namespace Core.Interfaces
         public void UpdateBookPicture(BookPicture bookPic);
         public Task<BookPicture> GetBookPictureByPicID(int picId);
         public Task<PagedList<Book>> GetAllBooktList(int pageSize, int pageNumber);
-
+     
         public Task<List<Picture>> GetBookPicturesAsync(int bookId);
     }
 }
